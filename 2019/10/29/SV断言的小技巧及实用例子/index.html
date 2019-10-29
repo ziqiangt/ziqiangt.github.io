@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Zion&#39;s blog</title>
+  <title>SV断言的小技巧及实用例子 | Zion&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目前任职于比特大陆，是一名IC验证工程师，熟悉SV，UVM，SVA等验证手段。掌握硬件加速器Palladium Z1的ICE, SA及DPA flow。">
+  <meta name="description" content="SVA（SV断言手段）SVA是一种强大的验证手段，本文将介绍一些工作中实用的方式。  验证寄存一拍 SVA调用function SVA实现循环检查 SVA实现FIFO空满检验 references  验证寄存一拍之前接触过一个DUT，子模块的部分输入打两拍后输出给下一级子模块。如果使用UVM，专门写一个monitor，一个scoreboard会表现出一种杀鸡焉用牛刀的感觉。其实，这种和时序密切相">
 <meta name="keywords" content="ASIC SV UVM">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zion&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SV断言的小技巧及实用例子">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90&#x2F;index.html">
 <meta property="og:site_name" content="Zion&#39;s blog">
-<meta property="og:description" content="目前任职于比特大陆，是一名IC验证工程师，熟悉SV，UVM，SVA等验证手段。掌握硬件加速器Palladium Z1的ICE, SA及DPA flow。">
+<meta property="og:description" content="SVA（SV断言手段）SVA是一种强大的验证手段，本文将介绍一些工作中实用的方式。  验证寄存一拍 SVA调用function SVA实现循环检查 SVA实现FIFO空满检验 references  验证寄存一拍之前接触过一个DUT，子模块的部分输入打两拍后输出给下一级子模块。如果使用UVM，专门写一个monitor，一个scoreboard会表现出一种杀鸡焉用牛刀的感觉。其实，这种和时序密切相">
 <meta property="og:locale" content="Chinese&#x2F;English">
+<meta property="og:image" content="https:&#x2F;&#x2F;cdn-images-1.medium.com&#x2F;max&#x2F;2000&#x2F;1*n4hLwVDtv4ywXxGuTaipbw.png">
+<meta property="og:updated_time" content="2019-10-29T14:22:38.458Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cdn-images-1.medium.com&#x2F;max&#x2F;2000&#x2F;1*n4hLwVDtv4ywXxGuTaipbw.png">
   
     <link rel="alternative" href="/atom.xml" title="Zion&#39;s blog" type="application/atom+xml">
   
@@ -144,76 +147,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-SV断言的小技巧及实用例子" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      SV断言的小技巧及实用例子
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/" class="archive-article-date">
+
+        
+        <a href="/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/" class="archive-article-date">
   	<time datetime="2019-10-29T14:22:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/">SV断言的小技巧及实用例子</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href=""markdown""><img src="https://cdn-images-1.medium.com/max/2000/1*n4hLwVDtv4ywXxGuTaipbw.png" alt=""></a></p>
+<h2 id="SVA（SV断言手段）"><a href="#SVA（SV断言手段）" class="headerlink" title="SVA（SV断言手段）"></a>SVA（SV断言手段）</h2><p>SVA是一种强大的验证手段，本文将介绍一些工作中实用的方式。</p>
+<ul>
+<li><a href="#验证寄存一拍">验证寄存一拍</a></li>
+<li><a href="#调用function">SVA调用function</a></li>
+<li><a href="#实现循环检查">SVA实现循环检查</a></li>
+<li><a href="#FIFO空满检验">SVA实现FIFO空满检验</a></li>
+<li><a href="#references">references</a></li>
+</ul>
+<h2 id="验证寄存一拍"><a href="#验证寄存一拍" class="headerlink" title="验证寄存一拍"></a>验证寄存一拍</h2><p>之前接触过一个DUT，子模块的部分输入打两拍后输出给下一级子模块。如果使用UVM，专门写一个monitor，一个scoreboard会表现出一种杀鸡焉用牛刀的感觉。其实，这种和时序密切相关的输出，可以直接使用SVA：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Title: UVM大哥和SVA小老弟</span><br><span class="line">Input-&gt;Output: 寄存两拍</span><br><span class="line">SVA-&gt;Output: 大哥，小弟先上！</span><br><span class="line">UVM-&gt;SVA: SVA小老弟，杀鸡沿用牛刀？</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">property cmd_wrdata_check;</span><br><span class="line">    bit[32:0] data;</span><br><span class="line">    @(posedge clk_i)</span><br><span class="line">        disable iff (!rstn_i) (1, data = data_i) |=&gt;##1  (data == data_o);    </span><br><span class="line">endproperty</span><br></pre></td></tr></table></figure>
+<p>Explain：断言中的信号值实际上是时钟沿到来之前的值。所以，对于非阻塞复制：b&lt;=a逻辑的断言应该是：“@ (posedge clk) (1,tmp=a) |=&gt; (b==tmp);”。上例多延时一拍”##1“，从而实现了寄存两拍的效果。</p>
+<h2 id="调用function"><a href="#调用function" class="headerlink" title="调用function"></a>调用function</h2><p>SVA还可以对保存的数据做简单的处理。这个类似于写一个reference model，并且实现每个cycle级别的检查。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Title: DUT大哥和SVA小老弟</span><br><span class="line">Input-&gt;Output:我怎么才能知道输出不会出现01，10的情况 </span><br><span class="line">SVA-&gt;Output: DUT大哥，我来调function！</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">property wren_check;</span><br><span class="line">    @(posedge clk_i)</span><br><span class="line">        disable iff(!rstn_i) (1) |-&gt; (checking_wren()) ;</span><br><span class="line">endproperty</span><br><span class="line"></span><br><span class="line">function checking_wren();</span><br><span class="line">    bit [11:0] temp;</span><br><span class="line">    for(int i=0; i&lt;12; i++) begin</span><br><span class="line">        temp[i] = source_wren[2*i] ^ source_wren[2*i+1];</span><br><span class="line">    end</span><br><span class="line">    checking_wren = ~(&amp;temp);</span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+<p>Explain：例2使用了断言可以调用function，从而检查了相邻bit位不能出现01，10的情况。结合例1，聪明的你是否也发现，SVA还可以利用function的结果作为下一级的判断条件呢？</p>
+<h2 id="实现循环检查"><a href="#实现循环检查" class="headerlink" title="实现循环检查"></a>实现循环检查</h2><p>验证小伙儿又犯难了，这次要让他验证一个clock gating。这个gating被总共例划了的12份。所有都一样，只是hierarchy中行列号不同。写12个断言吧，不是不行，只是显得冗余。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Title: 重复和SVA小老弟</span><br><span class="line">Input-&gt;Output:我有12个clock gating呢！ </span><br><span class="line">SVA-&gt;Output: 重复劳动我也能解决！</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">property clock_gate_check(signal1, signal2);</span><br><span class="line">	@(posedge clk_i)</span><br><span class="line">		disable iff (!rstn_i) (!signal1) |-&gt; (!signal2);</span><br><span class="line">endproperty</span><br><span class="line"></span><br><span class="line">generate</span><br><span class="line">	for(genvar i=0; i&lt;6; i++) begin: assert_ck_i</span><br><span class="line">        for(genvar j=0; j&lt;2; j++) begin: assert_ck_j</span><br><span class="line">		   assert property(clock_gate_check(</span><br><span class="line">                                               test_top.dut.row[i].col[j].en,</span><br><span class="line">                                               test_top.dut.row[i].col[j].clk_gate.en));</span><br><span class="line">		end</span><br><span class="line">    end</span><br><span class="line">endgenerate</span><br></pre></td></tr></table></figure>
+<p>Explain：例3显示利用property生成一个模板，然后使用generate语句重复调用这个模板，从而实现了对12个clock gating的验证。</p>
+<h2 id="FIFO空满检验"><a href="#FIFO空满检验" class="headerlink" title="FIFO空满检验"></a>FIFO空满检验</h2><p>断言在验证FIFO的空满标志时也非常实用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Title: FIFO和SVA小老弟</span><br><span class="line">Input-&gt;Output:我的空满能验吗？ </span><br><span class="line">SVA-&gt;Output: Easy！</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">//counter</span><br><span class="line">reg [15:0] w_cnt,r_cnt;</span><br><span class="line">wire [15:0] cnt;</span><br><span class="line">always@(posedge wif.clk)begin</span><br><span class="line">    if(~wif.rstn)</span><br><span class="line">        w_cnt&lt;=16&apos;b0;</span><br><span class="line">    else if(wif.en)</span><br><span class="line">        w_cnt&lt;=w_cnt+1;</span><br><span class="line">end</span><br><span class="line">always@(posedge rif.clk)begin</span><br><span class="line">    if(~rif.rstn)</span><br><span class="line">        r_cnt&lt;=16&apos;b0;</span><br><span class="line">    else if(rif.en)</span><br><span class="line">        r_cnt&lt;=r_cnt+1;</span><br><span class="line">end</span><br><span class="line">//check current counter</span><br><span class="line">assign cnt=w_cnt-r_cnt;</span><br><span class="line"></span><br><span class="line">//check full</span><br><span class="line">property full_chk;</span><br><span class="line">    @(posedge wif.clk) disable iff(~wif.rstn)</span><br><span class="line">        cnt==32 &amp;&amp; $rose(cnt[5]) |-&gt; $rose(wif.valid);</span><br><span class="line">endproperty</span><br><span class="line"></span><br><span class="line">a_full_chk: assert property(full_chk) </span><br><span class="line">                $display(&quot;check full pass&quot;);</span><br><span class="line">            else </span><br><span class="line">                $display(&quot;ERROR: check full fail&quot;);</span><br><span class="line">c_full_chk: cover property(full_chk);</span><br><span class="line"></span><br><span class="line">//check empty</span><br><span class="line">property empty_chk;</span><br><span class="line">    @(posedge rif.clk) disable iff(~rif.rstn)</span><br><span class="line">        cnt==0 &amp;&amp; $fell(cnt[0]) |-&gt; $rose(rif.valid);</span><br><span class="line">endproperty</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a_empty_chk: assert property(empty_chk) </span><br><span class="line">                $display(&quot;check empty pass&quot;);</span><br><span class="line">             else </span><br><span class="line">                $display(&quot;ERROR: check empty fail&quot;);</span><br><span class="line">c_empty_chk: cover property(empty_chk);</span><br></pre></td></tr></table></figure>
+<p>Explain：例4验证的是一个深度为32的FIFO，通过利用读写两个counter去记录目前为止。一旦满了，cnt=32，full应该立即拉高。一旦为空，cnt=0，empty应该立即拉高。</p>
+<h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><ol>
+<li>Mehta A B. SystemVerilog Assertions and Functional Coverage[M]. Springer., 2014.</li>
+<li><a href="http://blog.sina.com.cn/s/blog_4c270c730101f6mw.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4c270c730101f6mw.html</a></li>
+</ol>
 
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/28/Vim%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90-IC%E9%AA%8C%E8%AF%81%E5%B7%A5%E7%A8%8B%E5%B8%88/" class="archive-article-date">
-  	<time datetime="2019-10-28T14:28:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/28/Vim%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90-IC%E9%AA%8C%E8%AF%81%E5%B7%A5%E7%A8%8B%E5%B8%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vim插件推荐-IC验证工程师</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/28/Vim%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90-IC%E9%AA%8C%E8%AF%81%E5%B7%A5%E7%A8%8B%E5%B8%88/">Vim插件推荐-IC验证工程师</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -236,8 +348,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
