@@ -172,7 +172,7 @@
 <p>但是这里引升了一个问题，DUT是消耗仿真时间的，任意时刻的随机复位势必会对我们的reference model造成影响。特别是当reference model是不消耗仿真时间的function时。</p>
 <p>就这个问题，UVM具体又怎么做呢？是不是引出其他问题呢？本文就随机复位的情况，给出UVM的解决方案。</p>
 <ul>
-<li><a href="#phase间的跳转">phase jump</a></li>
+<li><a href="#phase间的跳转">phase间的跳转</a></li>
 <li><a href="#Jump后组件的处理">Jump后组件的处理</a></li>
 <li><a href="#Jump后TLM的处理">Jump后TLM的处理</a></li>
 <li><a href="#sequence和driver握手问题">sequence和driver握手问题</a></li>
