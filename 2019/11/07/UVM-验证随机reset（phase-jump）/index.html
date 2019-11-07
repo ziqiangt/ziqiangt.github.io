@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Zion&#39;s blog</title>
+  <title>UVM - 验证随机reset（phase jump） | Zion&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目前任职于比特大陆，是一名IC验证工程师，熟悉SV，UVM，SVA等验证手段。掌握硬件加速器Palladium Z1的ICE, SA及DPA flow。">
+  <meta name="description" content="UVM（phase jump）笔者在收集代码覆盖率时，曾发现无论自己打多少激励，FSM覆盖率总是cover不完全。分析后，发现是因为cover不到任意状态跳转复位状态。 一般咱们会将这种优先级低的case放在最后，甚至直接不验证。但是从完备性的角度考虑，这种case是需要验证到的。 但是这里引升了一个问题，DUT是消耗仿真时间的，任意时刻的随机复位势必会对我们的reference model造成">
 <meta name="keywords" content="ASIC SV UVM">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zion&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVM - 验证随机reset（phase jump）">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;07&#x2F;UVM-%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BAreset%EF%BC%88phase-jump%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Zion&#39;s blog">
-<meta property="og:description" content="目前任职于比特大陆，是一名IC验证工程师，熟悉SV，UVM，SVA等验证手段。掌握硬件加速器Palladium Z1的ICE, SA及DPA flow。">
+<meta property="og:description" content="UVM（phase jump）笔者在收集代码覆盖率时，曾发现无论自己打多少激励，FSM覆盖率总是cover不完全。分析后，发现是因为cover不到任意状态跳转复位状态。 一般咱们会将这种优先级低的case放在最后，甚至直接不验证。但是从完备性的角度考虑，这种case是需要验证到的。 但是这里引升了一个问题，DUT是消耗仿真时间的，任意时刻的随机复位势必会对我们的reference model造成">
 <meta property="og:locale" content="Chinese&#x2F;English">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.chipverify.com&#x2F;images&#x2F;uvm-tutorial&#x2F;uvm-phases.png">
+<meta property="og:updated_time" content="2019-11-07T12:39:51.230Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.chipverify.com&#x2F;images&#x2F;uvm-tutorial&#x2F;uvm-phases.png">
   
     <link rel="alternative" href="/atom.xml" title="Zion&#39;s blog" type="application/atom+xml">
   
@@ -144,103 +147,189 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-UVM-验证随机reset（phase-jump）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      UVM - 验证随机reset（phase jump）
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/07/UVM-%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BAreset%EF%BC%88phase-jump%EF%BC%89/" class="archive-article-date">
+
+        
+        <a href="/2019/11/07/UVM-%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BAreset%EF%BC%88phase-jump%EF%BC%89/" class="archive-article-date">
   	<time datetime="2019-11-07T11:54:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/07/UVM-%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BAreset%EF%BC%88phase-jump%EF%BC%89/">UVM - 验证随机reset（phase jump）</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="" title="UVM Phase"><img src="https://www.chipverify.com/images/uvm-tutorial/uvm-phases.png" alt=""></a></p>
+<h2 id="UVM（phase-jump）"><a href="#UVM（phase-jump）" class="headerlink" title="UVM（phase jump）"></a>UVM（phase jump）</h2><p>笔者在收集代码覆盖率时，曾发现无论自己打多少激励，FSM覆盖率总是cover不完全。分析后，发现是因为cover不到任意状态跳转复位状态。</p>
+<p>一般咱们会将这种优先级低的case放在最后，甚至直接不验证。但是从完备性的角度考虑，这种case是需要验证到的。</p>
+<p>但是这里引升了一个问题，DUT是消耗仿真时间的，任意时刻的随机复位势必会对我们的reference model造成影响。特别是当reference model是不消耗仿真时间的function时。</p>
+<p>就这个问题，UVM具体又怎么做呢？是不是引出其他问题呢？本文就随机复位的情况，给出UVM的解决方案。</p>
+<ul>
+<li><a href="#phase间的跳转">phase jump</a></li>
+<li><a href="#Jump后组件的处理">Jump后组件的处理</a></li>
+<li><a href="#Jump后TLM的处理">Jump后TLM的处理</a></li>
+<li><a href="#sequence和driver握手问题">sequence和driver握手问题</a></li>
+<li><a href="#references">references</a></li>
+</ul>
+<p>##phase间的跳转<br>其实要验证随机的复位不难，只是需要调用到UVM实战第5章中讲到的phase jump的概念。我们需要做的是，在driver/monitor里对复位信号做一个实时监测，如果复位有效，就立即将phase跳转到reset phase里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">begin</span><br><span class="line">     while(1) begin</span><br><span class="line">        @(negedge vif.rstn_i);</span><br><span class="line">        `uvm_info(get_type_name(), &quot;Monitor a reset!&quot;, UVM_MEDIUM)</span><br><span class="line">        phase.jump(uvm_reset_phase::get()); //跳转到reset phase</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>注意，此处的rstn是低有效，所以监测的是rstn的下降沿。此时，UVM将自动将所有的组件跳转到reset phase里。</p>
+<h2 id="Jump后组件的处理"><a href="#Jump后组件的处理" class="headerlink" title="Jump后组件的处理"></a>Jump后组件的处理</h2><p>此刻我们需要将所有的组件还原到DUT上电复位的状态。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver：应该给出复位是的驱动</span><br><span class="line">monitor：应该将所有用到的counter，临时变量等清零</span><br><span class="line">scoreboard：需要把用于比较数据的队列清空</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<h2 id="Jump后TLM的处理"><a href="#Jump后TLM的处理" class="headerlink" title="Jump后TLM的处理"></a>Jump后TLM的处理</h2><p>对于喜欢用TLM_FIFO的朋友，我们也不能忘记将TLM中的FIFO清空。此时，我们仅仅需要调用TLM_FIFO的内置函数flush。以下是uvm_tlm_fifos.svh的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  // Function: flush</span><br><span class="line">  //</span><br><span class="line">  // Removes all entries from the FIFO, after which &lt;used&gt; returns 0</span><br><span class="line">  // and &lt;is_empty&gt; returns 1.</span><br><span class="line"></span><br><span class="line">  virtual function void flush();</span><br><span class="line">    T t;</span><br><span class="line">    bit r;</span><br><span class="line"></span><br><span class="line">    r = 1; </span><br><span class="line">    while( r ) r = try_get( t ) ;</span><br><span class="line">    </span><br><span class="line">    if( m.num() &gt; 0 &amp;&amp; m_pending_blocked_gets != 0 ) begin</span><br><span class="line">      uvm_report_error(&quot;flush failed&quot; ,</span><br><span class="line">		       &quot;there are blocked gets preventing the flush&quot;, UVM_NONE);</span><br><span class="line">    end</span><br><span class="line">  </span><br><span class="line">  endfunction</span><br><span class="line"> </span><br><span class="line">endclass</span><br></pre></td></tr></table></figure>
 
+<h2 id="sequence和driver握手问题"><a href="#sequence和driver握手问题" class="headerlink" title="sequence和driver握手问题"></a>sequence和driver握手问题</h2><p>在phase jump之后，会因为driver调用两次get_next_item()操作而出现UVM ERROR：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UVM_ERROR @ 8514ns: uvm_test_top.env.agt_blake.seqr [uvm_test_top.env.agt_blake.seqr] Get_next_item called twice without item_done or get in between</span><br></pre></td></tr></table></figure>
+
+<p>为解决这个问题，我们需要再次使用sequencer的内嵌函数stop_sequences()去清除所有对sequence的请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class blake_sequencer extends uvm_sequencer #(blake_trans);</span><br><span class="line"></span><br><span class="line">    function new(string name, uvm_component parent);</span><br><span class="line">        super.new(name, parent);</span><br><span class="line">    endfunction</span><br><span class="line">    </span><br><span class="line">    `uvm_component_utils(blake_sequencer)</span><br><span class="line"></span><br><span class="line">    virtual task reset_phase(uvm_phase phase);</span><br><span class="line">        stop_sequences();</span><br><span class="line">        $display(&quot;we stop seqr for random reset!&quot;);</span><br><span class="line">    endtask</span><br><span class="line">endclass</span><br></pre></td></tr></table></figure>
+
+<p>以下是stop_sequences()在uvm_sequencer.svh中源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// Function- stop_sequences</span><br><span class="line">//</span><br><span class="line">// Tells the sequencer to kill all sequences and child sequences currently</span><br><span class="line">// operating on the sequencer, and remove all requests, locks and responses</span><br><span class="line">// that are currently queued.  This essentially resets the sequencer to an</span><br><span class="line">// idle state.</span><br><span class="line">//</span><br><span class="line">function void uvm_sequencer::stop_sequences();</span><br><span class="line">  REQ t;</span><br><span class="line">  super.stop_sequences();</span><br><span class="line">  sequence_item_requested  = 0;</span><br><span class="line">  get_next_item_called     = 0;</span><br><span class="line">  // Empty the request fifo</span><br><span class="line">  if (m_req_fifo.used()) begin</span><br><span class="line">    uvm_report_info(get_full_name(), &quot;Sequences stopped.  Removing request from sequencer fifo&quot;);</span><br><span class="line">    while (m_req_fifo.try_get(t));</span><br><span class="line">  end</span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+
+<p>##references</p>
+<ol>
+<li>张强. UVM 实战[M]. Ji xie gong ye chu ban she, 2014.</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/07/UVM-%E9%AA%8C%E8%AF%81%E9%9A%8F%E6%9C%BAreset%EF%BC%88phase-jump%EF%BC%89/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/" class="archive-article-date">
-  	<time datetime="2019-10-29T14:22:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SV断言的小技巧及实用例子</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/29/SV%E6%96%AD%E8%A8%80%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%8F%8A%E5%AE%9E%E7%94%A8%E4%BE%8B%E5%AD%90/">SV断言的小技巧及实用例子</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/28/Vim%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90-IC%E9%AA%8C%E8%AF%81%E5%B7%A5%E7%A8%8B%E5%B8%88/" class="archive-article-date">
-  	<time datetime="2019-10-28T14:28:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/28/Vim%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90-IC%E9%AA%8C%E8%AF%81%E5%B7%A5%E7%A8%8B%E5%B8%88/">Vim插件推荐-IC验证工程师</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -263,8 +352,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
