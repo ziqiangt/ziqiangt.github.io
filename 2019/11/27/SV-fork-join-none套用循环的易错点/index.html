@@ -18,7 +18,7 @@
 <meta property="og:locale" content="Chinese&#x2F;English">
 <meta property="og:image" content="https:&#x2F;&#x2F;1.bp.blogspot.com&#x2F;-B5x8q0Rtbqw&#x2F;V6nufxgW4AI&#x2F;AAAAAAAABEk&#x2F;9khEYAw1utkR5Bj8PaIBNqLBcRcZT5PngCPcB&#x2F;s1600&#x2F;fork-join_non2.gif">
 <meta property="og:image" content="https:&#x2F;&#x2F;res.cloudinary.com&#x2F;ziqiangt&#x2F;image&#x2F;upload&#x2F;v1574836236&#x2F;join_tg_pxt6fm.png">
-<meta property="og:updated_time" content="2019-11-27T11:28:13.680Z">
+<meta property="og:updated_time" content="2019-11-27T11:31:30.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;1.bp.blogspot.com&#x2F;-B5x8q0Rtbqw&#x2F;V6nufxgW4AI&#x2F;AAAAAAAABEk&#x2F;9khEYAw1utkR5Bj8PaIBNqLBcRcZT5PngCPcB&#x2F;s1600&#x2F;fork-join_non2.gif">
   
@@ -174,13 +174,13 @@
 <p>又比如，假设DUT有4个数据口。我们需要在UVM的body()函数里把4个sequence同时挂载到对应的psequencer上，可能也会用到这种语法（详见下图）。或许有看客想到，这种我不是可以用fork join实现吗？诚然，但是如果你有300个sequence呢？难道光是一个挂载sequence的代码就300行吗？<br> <img src="https://res.cloudinary.com/ziqiangt/image/upload/v1574836236/join_tg_pxt6fm.png" width = "700" alt="Fork join_none" align=center /></p>
 <p> 注：此处的wait fork不可以省略。因为系统在挂载成功后，会直接进入endtask。此后，系统认为sequence已执行完毕，从而清理sequence之前占据的空间。事实上，这几个sequence根本没有执行。</p>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#Automaic问题">Fork join_none的automaic问题</a><br>  <a href="#动态变量的创建时间">动态变量的创建时间</a><br>  [什么是程序陈述](#什么是procedual statement)<br>  <a href="#静态程序">静态程序</a><br>  <a href="#改善第1步">改善第1步</a><br>  <a href="#改善第2步">改善第2步</a><br>  <a href="#引生的问题">引生的问题</a></li>
+<li><a href="#Automaic问题">Fork join_none的automaic问题</a><br>  <a href="#动态变量的创建时间">动态变量的创建时间</a><br>  <a href="#什么是procedual_statement">什么是procedual_statement</a><br>  <a href="#静态程序">静态程序</a><br>  <a href="#改善第1步">改善第1步</a><br>  <a href="#改善第2步">改善第2步</a><br>  <a href="#引生的问题">引生的问题</a></li>
 <li><a href="#Join_none的位置问题">Fork join_none的位置问题</a></li>
 <li><a href="#Join_none中使用begin_end">Fork join_none中使用begin end</a></li>
 <li><a href="#references">references</a></li>
 </ul>
 <h2 id="Automaic问题"><a href="#Automaic问题" class="headerlink" title="Automaic问题"></a>Automaic问题</h2><h4 id="动态变量的创建时间"><a href="#动态变量的创建时间" class="headerlink" title="动态变量的创建时间"></a>动态变量的创建时间</h4><p>我们首先需要明确一个概念：Automatic variables get created upon entry and initialized before executing any procedural statement within the block they are located in.</p>
-<h4 id="什么是procedual-statement"><a href="#什么是procedual-statement" class="headerlink" title="什么是procedual statement"></a>什么是procedual statement</h4><p>以下的语句都是procedural statement:</p>
+<h4 id="什么是procedual-statement"><a href="#什么是procedual-statement" class="headerlink" title="什么是procedual_statement"></a>什么是procedual_statement</h4><p>以下的语句都是procedural statement:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">initial // enable this statement at the beginning of simulation and execute it only once</span><br><span class="line">final // do this statement once at the end of simulation</span><br><span class="line">always, always_comb, always_latch, always_ff // loop forever</span><br><span class="line">task // do these statements whenever the task is called</span><br><span class="line">function // do these statements whenever the function is called and return a value</span><br></pre></td></tr></table></figure>
 
 <h4 id="静态程序"><a href="#静态程序" class="headerlink" title="静态程序"></a>静态程序</h4><p>首先来看看，下面这个例子。program是静态的，所以 i 是一个静态变量，这个临时变量 i 会用一个存储空间。所以最终输出的值应该是 i 的最终值5。</p>
