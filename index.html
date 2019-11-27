@@ -167,9 +167,8 @@
     <div class="article-entry" itemprop="articleBody">
       
          <img src="https://1.bp.blogspot.com/-B5x8q0Rtbqw/V6nufxgW4AI/AAAAAAAABEk/9khEYAw1utkR5Bj8PaIBNqLBcRcZT5PngCPcB/s1600/fork-join_non2.gif" width = "400" alt="Fork join_none" align=center />
-## SV（fork join_none 套用循环时需要注意的点）
-在验证过程中，我们不得不接触fork join_none配合循环的例子。例如，我们在Monitor需要检测多个通道的输出，可能就需要用到fork join_none，让程序后台生成多个线程将多个Monitor监测的多路结果输出到对应通道的scoreboard中。
 
+<h2 id="SV-fork-join-none-套用循环时需要注意的点"><a href="#SV-fork-join-none-套用循环时需要注意的点" class="headerlink" title="SV - fork join_none 套用循环时需要注意的点"></a>SV - fork join_none 套用循环时需要注意的点</h2><p>在验证过程中，我们不得不接触fork join_none配合循环的例子。例如，我们在Monitor需要检测多个通道的输出，可能就需要用到fork join_none，让程序后台生成多个线程将多个Monitor监测的多路结果输出到对应通道的scoreboard中。</p>
 <p>又比如，假设DUT有4个数据口。我们需要在UVM的body()函数里把4个sequence同时挂载到对应的psequencer上，可能也会用到这种语法（详见下图）。或许有看客想到，这种我不是可以用fork join实现吗？诚然，但是如果你有300个sequence呢？难道光是一个挂载sequence的代码就300行吗？<br> <img src="https://res.cloudinary.com/ziqiangt/image/upload/v1574836236/join_tg_pxt6fm.png" width = "700" alt="Fork join_none" align=center /></p>
 <p> 注：此处的wait fork不可以省略。因为系统在挂载成功后，会直接进入endtask。此后，系统认为sequence已执行完毕，从而清理sequence之前占据的空间。事实上，这几个sequence根本没有执行。</p>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
